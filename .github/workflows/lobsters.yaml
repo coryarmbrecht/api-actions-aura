@@ -1,0 +1,21 @@
+name: Lobsters API import
+
+on:
+  push:
+    path:
+      - .github/workflows/lobsters.yaml
+    workflow_dispatch:
+      schedule:
+      - cron: '*/60 * * * *'
+      
+ jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checks out the repo
+      uses: actions/checkout@v2
+      - name: Fetches newest
+      uses: githubocto/flat@v2
+      with:
+        http_url: https://lobste.rs/newest.json
+        downloaded_filename: newest.json
